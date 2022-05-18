@@ -30,7 +30,7 @@ Route::put('/mascotas/{id?}', 'MascotasController@update');
 Route::post('/mascotas', 'MascotasController@create');
 
 //////// RUTAS DE EL APARTADO DE PERSONAL ////////////
-Route::get('/mascotas/{id?}', 'MascotasController@index');
-Route::delete('/mascotas/{id?}', 'MascotasController@destroy');
-Route::put('/mascotas/{id?}', 'MascotasController@update');
-Route::post('/mascotas', 'MascotasController@create');
+Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
+Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
+Route::put('/veterinarios/{id?}', 'VeterinarioController@update');
+Route::post('/veterinarios', 'VeterinarioController@create');
