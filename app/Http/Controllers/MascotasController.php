@@ -2,83 +2,61 @@
 
 namespace App\Http\Controllers;
 
+use App\ClienteModel;
+use App\MascotasModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class MascotasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+   
+    public function index($id = null)
     {
-        //
+        if($id)
+        return response()->json(["Mascota"=>MascotasModel::find($id)],200);
+        return response()->json(["Mascotas"=>MascotasModel::all()],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+   
+    public function create(Request $request)
     {
-        //
+        $user = new MascotasModel();
+        $user->nombre = $request->nombre;
+        $user->raza = $request->raza;
+        $user->edad = $request->edad;
+        $user->cliente = $request->cliente;
+
+        if($user->save())
+        return response()->json(["Se ha agregado el cliente con exito!!!"],200);
+        return response()->json(null,400);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $results = DB::select('select * from mascota where id = :id', ['id' => $id]);
+       
+
+        if($results==[])
+        {
+            return response()->json(["No existe el Id de la Mascota"]);
+        }
+        else
+        {
+        $update = new MascotasModel();
+        $update = MascotasModel::find($id);
+        $update->nombre = $request->get('nombre');
+        $update->raza = $request->get('raza');
+        $update->edad = $request->get('edad');
+        $update->cliente = $request->get('cliente');
+        if($update->save())
+        return response()->json(["Se ha actualizado el cliente exitosamente"],200);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        MascotasModel::destroy($id);
+       return response()->json(["Se ha eliminado la mascota exitosamente"],200);
     }
 }

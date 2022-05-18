@@ -11,8 +11,6 @@ class ClienteController extends Controller
 {
     public function index($id = null)
     {
-        //$results = DB::select('select * from cliente');
-        //return response()->json(["clientes"=>$results],200);
         if($id)
         return response()->json(["Cliente"=>ClienteModel::find($id)],200);
         return response()->json(["Clientes"=>ClienteModel::all()],200);
@@ -37,7 +35,7 @@ class ClienteController extends Controller
 
         if($results==[])
         {
-            return response()->json(["No existe el id"]);
+            return response()->json(["No existe el Id del Cliente"]);
         }
         else
         {

@@ -22,3 +22,9 @@ Route::get('/clientes/{id?}', 'ClienteController@index');
 Route::delete('/clientes/{id?}', 'ClienteController@destroy');
 Route::put('/clientes/{id?}', 'ClienteController@update');
 Route::post('/clientes', 'ClienteController@create');
+
+//////// RUTAS DE EL APARTADO DE MASCOTAS ////////////
+Route::get('/mascotas/{id?}', 'MascotasController@index');
+Route::delete('/mascotas/{id?}', 'MascotasController@destroy');
+Route::put('/mascotas/{id?}', 'MascotasController@update');
+Route::post('/mascotas', 'MascotasController@create');
