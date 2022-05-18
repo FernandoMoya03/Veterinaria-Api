@@ -20,6 +20,7 @@ class Mascota extends Migration
             $table->string('edad',11);
             $table->unsignedBigInteger('cliente');
             $table->foreign('cliente')->references('id')->on('cliente');
+            $table->timestamps();
         });
     }
 

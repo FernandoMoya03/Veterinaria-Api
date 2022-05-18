@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\ClienteModel;
 use App\Models\cliente;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -27,22 +28,33 @@ class ClienteController extends Controller
         if($user->save())
         return response()->json(["Se ha agregado el cliente con exito!!!"],200);
         return response()->json(null,400);
-
     }
 
-   
-
-   
-  
-    
     public function update(Request $request, $id)
     {
-        //
+        $results = DB::select('select * from cliente where id = :id', ['id' => $id]);
+       
+
+        if($results==[])
+        {
+            return response()->json(["No existe el id"]);
+        }
+        else
+        {
+        $update = new ClienteModel();
+        $update = ClienteModel::find($id);
+        $update->nombre = $request->get('nombre');
+        $update->direccion = $request->get('direccion');
+        $update->telefono = $request->get('telefono');
+        if($update->save())
+        return response()->json(["Se ha actualizado el cliente exitosamente"],200);
+        }
     }
 
    
     public function destroy($id)
     {
-        //
+        ClienteModel::destroy($id);
+       return response()->json(["Se ha eliminado el cliente exitosamente"],200);
     }
 }
