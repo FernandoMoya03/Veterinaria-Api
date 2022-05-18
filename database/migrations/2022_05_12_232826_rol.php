@@ -17,7 +17,20 @@ class Rol extends Migration
         Schema::create('rol', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('rol');
+            $table->timestamps();
         });
+        DB::table("rol")
+            ->insert([
+                "rol" => "admin"
+            ]);
+            DB::table("rol")
+            ->insert([
+                "rol" => "veterinario"
+            ]);
+            DB::table("rol")
+            ->insert([
+                "rol" => "asistente"
+            ]);
     }
 
     /**

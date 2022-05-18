@@ -20,6 +20,7 @@ class Personal extends Migration
             $table->string('telefono',25);
             $table->unsignedBigInteger('rol');
             $table->foreign('rol')->references('id')->on('rol');
+            $table->timestamps();
         });
     }
 
