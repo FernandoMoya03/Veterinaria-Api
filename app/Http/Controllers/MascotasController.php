@@ -21,6 +21,22 @@ class MascotasController extends Controller
    
     public function create(Request $request)
     {
+        if($request->nombre == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+        }
+        elseif($request->raza == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el nombre de la Raza'],400); 
+        }
+        elseif($request->edad == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar la edad correspondiente'],400); 
+        }
+        elseif($request->cliente == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el Id del cliente'],400); 
+        }
         $user = new MascotasModel();
         $user->nombre = $request->nombre;
         $user->raza = $request->raza;
@@ -43,6 +59,25 @@ class MascotasController extends Controller
         }
         else
         {
+            
+            if($request->nombre == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+            }
+            elseif($request->raza == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar el nombre de la Raza'],400); 
+            }
+            elseif($request->edad == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar la edad correspondiente'],400); 
+            }
+            elseif($request->cliente == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar el Id del cliente'],400); 
+            }
+
+            
         $update = new MascotasModel();
         $update = MascotasModel::find($id);
         $update->nombre = $request->get('nombre');

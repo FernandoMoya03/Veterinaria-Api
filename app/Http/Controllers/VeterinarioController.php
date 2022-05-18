@@ -22,6 +22,24 @@ class VeterinarioController extends Controller
   
     public function create(Request $request)
     {
+        
+        if($request->nombre == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+        }
+        elseif($request->direccion == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar la Direccion'],400); 
+        }
+        elseif($request->telefono == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
+        }
+        elseif($request->rol == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el Id del Rol'],400); 
+        }
+
         $user = new VeterinarioModel();
         $user->nombre = $request->nombre;
         $user->direccion = $request->direccion;
@@ -36,15 +54,31 @@ class VeterinarioController extends Controller
   
     public function update(Request $request, $id)
     {
-        $results = DB::select('select * from personal where id = :id', ['id' => $id]);
-       
-
+        $results = DB::select('select * from personal where id = :id', ['id' => $id]);   
         if($results==[])
         {
             return response()->json(["No existe el Id de la Mascota"]);
         }
         else
         {
+            if($request->nombre == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+            }
+            elseif($request->direccion == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar la Direccion'],400); 
+            }
+            elseif($request->telefono == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
+            }
+            elseif($request->rol == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar el Id del Rol'],400); 
+            }    
+        
+
         $update = new VeterinarioModel();
         $update = VeterinarioModel::find($id);
         $update->nombre = $request->get('nombre');

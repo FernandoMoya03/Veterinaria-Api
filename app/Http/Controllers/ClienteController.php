@@ -18,6 +18,19 @@ class ClienteController extends Controller
     
     public function create(Request $request)
     {
+        if($request->nombre == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+        }
+        elseif($request->direccion == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar la direccion'],400); 
+        }
+        elseif($request->telefono == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
+        }
+
         $user = new ClienteModel();
         $user->nombre = $request->nombre;
         $user->direccion = $request->direccion;
@@ -39,6 +52,20 @@ class ClienteController extends Controller
         }
         else
         {
+
+            if($request->nombre == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+            }
+            elseif($request->direccion == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar la direccion'],400); 
+            }
+            elseif($request->telefono == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
+            }
+
         $update = new ClienteModel();
         $update = ClienteModel::find($id);
         $update->nombre = $request->get('nombre');
