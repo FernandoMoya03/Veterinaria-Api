@@ -13,13 +13,14 @@ class Mascota extends Migration
      */
     public function up()
     {
-        Schema::create('mascota', function (Blueprint $table) {
+        Schema::create('mascotas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre',45);
             $table->string('raza',45);
+            $table->string('tipo',45);
             $table->string('edad',11);
             $table->unsignedBigInteger('cliente');
-            $table->foreign('cliente')->references('id')->on('cliente');
+            $table->foreign('cliente')->references('id')->on('clientes');
             $table->timestamps();
         });
     }
