@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class rol extends Model
+class CitasModel extends Model
 {
-    //
+    protected $table = 'citas';
 }
