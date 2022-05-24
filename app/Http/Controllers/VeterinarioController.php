@@ -21,50 +21,6 @@ class VeterinarioController extends Controller
     }
 
   
-    public function create(Request $request)
-    {
-        
-        if($request->name == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
-        }
-        elseif($request->email == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar el Email'],400); 
-        }
-        elseif($request->direccion == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar la Direccion'],400); 
-        }
-        elseif($request->telefono == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
-        }
-        elseif($request->password == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar la contraseña'],400); 
-        }
-        elseif($request->tipo == "")
-        {
-            return response()->json(['messeage' => 'Favor de indicar el tipo'],400); 
-        }
-        
-
-        $user = new VeterinarioModel();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->direccion = $request->direccion;
-        $user->telefono = $request->telefono;
-        $user->password = Hash::make($request->password);
-        $user->tipo = $request->tipo;
-
-        if($user->save())
-        return response()->json(["Se ha agregado el cliente con exito!!!"],200);
-        return response()->json(null,400);
-
-    }
-
-  
     public function update(Request $request, $id)
     {
         $results = DB::select('select * from personal where id = :id', ['id' => $id]);   

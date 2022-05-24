@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //////// RUTAS DE EL APARTADO DE USERS ////////////
 Route::post('/login', 'AuthController@logIn');
+Route::post('/user', 'AuthController@createuser');
 
 
 //////// RUTAS DE EL APARTADO DE CLIENTES ////////////
@@ -39,4 +40,3 @@ Route::post('/mascotas', 'MascotasController@create');
 Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
 Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
 Route::put('/veterinarios/{id?}', 'VeterinarioController@update');
-Route::post('/veterinarios', 'VeterinarioController@create');
