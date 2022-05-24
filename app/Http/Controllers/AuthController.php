@@ -66,23 +66,6 @@ class AuthController extends Controller
         return response()->json(["Se ha agregado el cliente con exito!!!"],200);
         return response()->json(null,400);
     }
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-       // 
-    }
-   
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
+    
+    
 }
