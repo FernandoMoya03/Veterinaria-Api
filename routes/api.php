@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//////// RUTAS DE EL APARTADO DE USERS ////////////
+Route::post('/login', 'AuthController@logIn');
+
+
 //////// RUTAS DE EL APARTADO DE CLIENTES ////////////
 Route::get('/clientes/{id?}', 'ClienteController@index');
 Route::delete('/clientes/{id?}', 'ClienteController@destroy');
@@ -29,7 +35,7 @@ Route::delete('/mascotas/{id?}', 'MascotasController@destroy');
 Route::put('/mascotas/{id?}', 'MascotasController@update');
 Route::post('/mascotas', 'MascotasController@create');
 
-//////// RUTAS DE EL APARTADO DE PERSONAL ////////////
+//////// RUTAS DE EL APARTADO DE USERS ////////////
 Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
 Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
 Route::put('/veterinarios/{id?}', 'VeterinarioController@update');

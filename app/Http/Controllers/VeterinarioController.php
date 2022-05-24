@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ClienteModel;
 use App\MascotasModel;
 use App\VeterinarioModel;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -15,17 +16,21 @@ class VeterinarioController extends Controller
     public function index($id = null)
     {
         if($id)
-        return response()->json(["Veterinario"=>VeterinarioModel::find($id)],200);
-        return response()->json(["Veterinarios"=>VeterinarioModel::all()],200);
+        return response()->json(["Usuario"=>VeterinarioModel::find($id)],200);
+        return response()->json(["Usuarios"=>VeterinarioModel::all()],200);
     }
 
   
     public function create(Request $request)
     {
         
-        if($request->nombre == "")
+        if($request->name == "")
         {
             return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+        }
+        elseif($request->email == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el Email'],400); 
         }
         elseif($request->direccion == "")
         {
@@ -35,20 +40,28 @@ class VeterinarioController extends Controller
         {
             return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
         }
-        elseif($request->rol == "")
+        elseif($request->password == "")
         {
-            return response()->json(['messeage' => 'Favor de insertar el Id del Rol'],400); 
+            return response()->json(['messeage' => 'Favor de insertar la contraseña'],400); 
         }
+        elseif($request->tipo == "")
+        {
+            return response()->json(['messeage' => 'Favor de indicar el tipo'],400); 
+        }
+        
 
         $user = new VeterinarioModel();
-        $user->nombre = $request->nombre;
+        $user->name = $request->name;
+        $user->email = $request->email;
         $user->direccion = $request->direccion;
         $user->telefono = $request->telefono;
-        $user->rol = $request->rol;
+        $user->password = Hash::make($request->password);
+        $user->tipo = $request->tipo;
 
         if($user->save())
         return response()->json(["Se ha agregado el cliente con exito!!!"],200);
         return response()->json(null,400);
+
     }
 
   
@@ -61,22 +74,32 @@ class VeterinarioController extends Controller
         }
         else
         {
-            if($request->nombre == "")
-            {
-                return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
-            }
-            elseif($request->direccion == "")
-            {
-                return response()->json(['messeage' => 'Favor de insertar la Direccion'],400); 
-            }
-            elseif($request->telefono == "")
-            {
-                return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
-            }
-            elseif($request->rol == "")
-            {
-                return response()->json(['messeage' => 'Favor de insertar el Id del Rol'],400); 
-            }    
+           
+
+            if($request->name == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
+        }
+        elseif($request->email == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el Email'],400); 
+        }
+        elseif($request->direccion == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar la Direccion'],400); 
+        }
+        elseif($request->telefono == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
+        }
+        elseif($request->password == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar la contraseña'],400); 
+        }
+        elseif($request->tipo == "")
+        {
+            return response()->json(['messeage' => 'Favor de indicar el tipo'],400); 
+        }
         
 
         $update = new VeterinarioModel();
