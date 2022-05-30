@@ -18,7 +18,7 @@ class AuthController extends Controller
         $user = VeterinarioModel::where('email', $request->email)->first();
         if(! $user || ! Hash::check($request->password, $user->password))
         {
-            return response()->json("credenciales incorrectas", 400);
+            return response()->json("credenciales incorrectas");
         }
         
         $token = $user ->createToken($request->email,['user:info'])->plainTextToken;

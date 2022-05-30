@@ -29,6 +29,10 @@ class MascotasController extends Controller
         {
             return response()->json(['messeage' => 'Favor de insertar el nombre de la Raza'],400); 
         }
+        elseif($request->tipo == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el tipo de animal'],400); 
+        }
         elseif($request->edad == "")
         {
             return response()->json(['messeage' => 'Favor de insertar la edad correspondiente'],400); 
@@ -40,6 +44,7 @@ class MascotasController extends Controller
         $user = new MascotasModel();
         $user->nombre = $request->nombre;
         $user->raza = $request->raza;
+        $user->tipo = $request->tipo;
         $user->edad = $request->edad;
         $user->cliente = $request->cliente;
 
@@ -50,7 +55,7 @@ class MascotasController extends Controller
 
     public function update(Request $request, $id)
     {
-        $results = DB::select('select * from mascota where id = :id', ['id' => $id]);
+        $results = DB::select('select * from mascotas where id = :id', ['id' => $id]);
        
 
         if($results==[])
@@ -68,6 +73,10 @@ class MascotasController extends Controller
             {
                 return response()->json(['messeage' => 'Favor de insertar el nombre de la Raza'],400); 
             }
+            elseif($request->tipo == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el tipo de animal'],400); 
+        }
             elseif($request->edad == "")
             {
                 return response()->json(['messeage' => 'Favor de insertar la edad correspondiente'],400); 
@@ -82,6 +91,7 @@ class MascotasController extends Controller
         $update = MascotasModel::find($id);
         $update->nombre = $request->get('nombre');
         $update->raza = $request->get('raza');
+        $update->tipo = $request->get('tipo');
         $update->edad = $request->get('edad');
         $update->cliente = $request->get('cliente');
         if($update->save())

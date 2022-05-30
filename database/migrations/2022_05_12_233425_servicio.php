@@ -17,6 +17,8 @@ class Servicio extends Migration
             $table->bigIncrements('id');
             $table->string('servicio');
             $table->string('descripcion');
+            $table->timestamps();
+
         });
     }
 
