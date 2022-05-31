@@ -20,9 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //////// RUTAS DE EL APARTADO DE USERS ////////////
+// LOGIN
 Route::post('/login', 'AuthController@logIn');
 Route::post('/us/registro', 'AuthController@createuser');
-
+// LOGOUT
+Route::post('/logout', 'AuthController@logIn');
 
 //////// RUTAS DE EL APARTADO DE CLIENTES ////////////
 Route::get('/clientes/{id?}', 'ClienteController@index');
@@ -42,14 +44,21 @@ Route::delete('/citas/{id?}', 'CitaController@destroy');
 Route::put('/citas/{id?}', 'CitaController@update');
 Route::post('/citas', 'CitaController@create');
 
-//////// RUTAS DE EL APARTADO DE VETERINARIOS ////////////
-//Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
-//Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
-//Route::put('/veterinarios/{id?}', 'VeterinarioController@update');
-
+//////// RUTAS DE EL APARTADO DE HISTORIAL CLINICO ////////////
+Route::get('/h_c/{id?}', 'HistorialClinicoController@index');
+Route::delete('/h_c/{id?}', 'HistorialClinicoController@destroy');
+Route::put('/h_c/{id?}', 'HistorialClinicoController@update');
+Route::post('/h_c', 'HistorialClinicoController@create');
 
 //////// RUTAS DE EL APARTADO DE SERVICIOS ////////////
 Route::get('/servicios/{id?}', 'ServicioController@index');
 Route::post('/servicios', 'ServicioController@create');
 Route::delete('/servicios/{id?}', 'ServicioController@destroy');
 Route::put('/servicios/{id?}', 'ServicioController@update');
+
+
+
+//////// RUTAS DE EL APARTADO DE VETERINARIOS ////////////
+//Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
+//Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
+//Route::put('/veterinarios/{id?}', 'VeterinarioController@update');
