@@ -25,6 +25,7 @@ class Citas extends Migration
             $table->foreign('veterinario')->references('id')->on('users');
             $table->string('fecha',45);
             $table->string('status',45);
+            $table->timestamps();
         });
     }
 

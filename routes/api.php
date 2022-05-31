@@ -36,10 +36,16 @@ Route::delete('/mascotas/{id?}', 'MascotasController@destroy');
 Route::put('/mascotas/{id?}', 'MascotasController@update');
 Route::post('/mascotas', 'MascotasController@create');
 
-//////// RUTAS DE EL APARTADO DE USERS ////////////
-Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
-Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
-Route::put('/veterinarios/{id?}', 'VeterinarioController@update');
+//////// RUTAS DE EL APARTADO DE CITAS ////////////
+Route::get('/citas/{id?}', 'CitaController@index');
+Route::delete('/citas/{id?}', 'CitaController@destroy');
+Route::put('/citas/{id?}', 'CitaController@update');
+Route::post('/citas', 'CitaController@create');
+
+//////// RUTAS DE EL APARTADO DE VETERINARIOS ////////////
+//Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
+//Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
+//Route::put('/veterinarios/{id?}', 'VeterinarioController@update');
 
 
 //////// RUTAS DE EL APARTADO DE SERVICIOS ////////////

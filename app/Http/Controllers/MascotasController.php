@@ -49,7 +49,7 @@ class MascotasController extends Controller
         $user->cliente = $request->cliente;
 
         if($user->save())
-        return response()->json(["Se ha agregado el cliente con exito!!!"],200);
+        return response()->json(["Se ha agregado la mascota con exito!!!"],200);
         return response()->json(null,400);
     }
 
