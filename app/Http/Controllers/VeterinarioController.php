@@ -6,6 +6,7 @@ use App\ClienteModel;
 use App\MascotasModel;
 use App\VeterinarioModel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -23,6 +24,11 @@ class VeterinarioController extends Controller
   
     public function update(Request $request, $id)
     {
+
+        
+        
+
+
         $results = DB::select('select * from personal where id = :id', ['id' => $id]);   
         if($results==[])
         {

@@ -21,6 +21,15 @@ class MascotasController extends Controller
    
     public function create(Request $request)
     {
+
+        $verificacioncliente = $request->cliente;
+        $resultcliente = DB::select('select * from mascotas where id = :id', ['id' => $verificacioncliente]);
+
+        if($resultcliente==[])
+        {
+            return response()->json(["No existe ese cliente, favor de insertar el numero de cliente correcto..."], 400);
+        }
+        
         if($request->nombre == "")
         {
             return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
@@ -41,6 +50,10 @@ class MascotasController extends Controller
         {
             return response()->json(['messeage' => 'Favor de insertar el Id del cliente'],400); 
         }
+
+       
+
+
         $user = new MascotasModel();
         $user->nombre = $request->nombre;
         $user->raza = $request->raza;

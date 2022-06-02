@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 use App\ClienteModel;
 use App\Models\cliente;
+use App\VeterinarioModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class ClienteController extends Controller
 {
     public function index($id = null)
     {
+
+
         if($id)
         return response()->json(["Cliente"=>ClienteModel::find($id)],200);
         return response()->json(["Clientes"=>ClienteModel::all()],200);
@@ -18,15 +21,15 @@ class ClienteController extends Controller
     
     public function create(Request $request)
     {
-        if($request->nombre == "")
+        if(!$request->nombre)
         {
             return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
         }
-        elseif($request->direccion == "")
+        elseif(!$request->direccion)
         {
             return response()->json(['messeage' => 'Favor de insertar la direccion'],400); 
         }
-        elseif($request->telefono == "")
+        elseif(!$request->telefono)
         {
             return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
         }
@@ -43,7 +46,7 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
-        $results = DB::select('select * from cliente where id = :id', ['id' => $id]);
+        $results = DB::select('select * from clientes where id = :id', ['id' => $id]);
        
 
         if($results==[])

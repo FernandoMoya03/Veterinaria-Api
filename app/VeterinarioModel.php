@@ -10,6 +10,10 @@ use Illuminate\Foundation\Auth\VeterinarioModel as Authenticatable;
 
 class VeterinarioModel extends Model
 {
+    public function getAuthIdentifier()
+    {
+    
+    }
     use HasApiTokens, Notifiable;
     protected $table = 'users';
 

@@ -27,10 +27,10 @@ Route::post('/us/registro', 'AuthController@createuser');
 Route::post('/logout', 'AuthController@logIn');
 
 //////// RUTAS DE EL APARTADO DE CLIENTES ////////////
-Route::get('/clientes/{id?}', 'ClienteController@index');
-Route::delete('/clientes/{id?}', 'ClienteController@destroy');
-Route::put('/clientes/{id?}', 'ClienteController@update');
-Route::post('/clientes', 'ClienteController@create');
+Route::middleware("auth:sanctum")->get('/clientes/{id?}', 'ClienteController@index');
+Route::middleware('auth:sanctum')->delete('/clientes/{id?}', 'ClienteController@destroy');
+Route::middleware('auth:sanctum')->put('/clientes/{id?}', 'ClienteController@update');
+Route::middleware('auth:sanctum')->post('/clientes', 'ClienteController@create');
 
 //////// RUTAS DE EL APARTADO DE MASCOTAS ////////////
 Route::get('/mascotas/{id?}', 'MascotasController@index');
