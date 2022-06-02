@@ -1,84 +1,113 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\ClienteModel;
+use App\MascotasModel;
+use App\ServicioModel;
+use App\CitasModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
 
 class CitaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        if($id = null)
+        return response()->json(["Cita"=>CitasModel::find($id)],200);
+        return response()->json(["Citas"=>CitasModel::all()],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    
+    public function create(Request $request)
     {
-        //
+        if($request->mascota == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar la mascota'],400); 
+        }
+        elseif($request->cliente == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el cliente'],400); 
+        }
+        elseif($request->veterinario == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar veterinario'],400); 
+        }
+        elseif($request->fecha == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar la fecha'],400); 
+        }
+        elseif($request->status == "")
+        {
+            return response()->json(['messeage' => 'Favor de insertar el status'],400); 
+        }
+
+        $citas = new CitasModel();
+        $citas->mascota = $request->mascota;
+        $citas->cliente = $request->cliente;
+        $citas->servicio = $request->servicio;
+        $citas->veterinario = $request->veterinario;
+        $citas->fecha = $request->fecha;
+        $citas->status = $request->status;
+
+        if($citas->save())
+        return response()->json(["Se ha agregado el servicio con exito!!!"],200);
+        return response()->json(null,400);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $results = DB::select('select * from citas where id = :id', ['id' => $id]);
+       
+
+        if($results==[])
+        {
+            return response()->json(["No existe el id de la cita"]);
+        }
+        else
+        {
+            if($request->mascota == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar la mascota'],400); 
+            }
+            elseif($request->cliente == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar el cliente'],400); 
+            }
+            elseif($request->veterinario == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar veterinario'],400); 
+            }
+            elseif($request->fecha == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar la fecha'],400); 
+            }
+            elseif($request->status == "")
+            {
+                return response()->json(['messeage' => 'Favor de insertar el status'],400); 
+            }
+
+            
+        $update = new CitasModel();
+        $update = CitasModel::find($id);
+        $update->mascota = $request->get('mascota');
+        $update->cliente = $request->get('cliente');
+        $update->servicio = $request->get('servicio');
+        $update->veterinario = $request->get('veterinario');
+        $update->fecha = $request->get('fecha');
+        $update->status = $request->get('status');
+        
+        if($update->save())
+        return response()->json(["Se ha actualizado la cita exitosamente"],200);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        CitasModel::destroy($id);
+        return response()->json(["Se ha eliminado el servicio exitosamente"],200);
     }
 }
