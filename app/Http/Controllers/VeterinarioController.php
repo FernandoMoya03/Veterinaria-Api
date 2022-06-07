@@ -25,9 +25,6 @@ class VeterinarioController extends Controller
     public function update(Request $request, $id)
     {
 
-        
-        
-
 
         $results = DB::select('select * from personal where id = :id', ['id' => $id]);   
         if($results==[])

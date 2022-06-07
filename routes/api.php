@@ -33,10 +33,10 @@ Route::middleware('auth:sanctum')->put('/clientes/{id?}', 'ClienteController@upd
 Route::middleware('auth:sanctum')->post('/clientes', 'ClienteController@create');
 
 //////// RUTAS DE EL APARTADO DE MASCOTAS ////////////
-Route::get('/mascotas/{id?}', 'MascotasController@index');
-Route::delete('/mascotas/{id?}', 'MascotasController@destroy');
-Route::put('/mascotas/{id?}', 'MascotasController@update');
-Route::post('/mascotas', 'MascotasController@create');
+Route::middleware("auth:sanctum")->get('/mascotas/{id?}', 'MascotasController@index');
+Route::middleware("auth:sanctum")->delete('/mascotas/{id?}', 'MascotasController@destroy');
+Route::middleware("auth:sanctum")->put('/mascotas/{id?}', 'MascotasController@update');
+Route::middleware("auth:sanctum")->post('/mascotas', 'MascotasController@create');
 
 //////// RUTAS DE EL APARTADO DE CITAS ////////////
 Route::get('/citas/{id?}', 'CitaController@index');
