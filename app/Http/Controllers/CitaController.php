@@ -20,6 +20,18 @@ class CitaController extends Controller
         return response()->json(["Citas"=>CitasModel::all()],200);
     }
 
+    public function indexCompleto(){
+
+        $citas = DB::table('citas')
+        ->join('clientes', 'clientes.id', '=' , 'citas.cliente')
+        ->join('mascotas','mascotas.id','=','citas.mascota')
+        ->select('citas.id as id_cita','clientes.nombre as Cliente')
+        ->get();
+
+        return response()->json($citas);
+
+    }
+
     
     public function create(Request $request)
     {

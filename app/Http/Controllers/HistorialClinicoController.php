@@ -92,4 +92,10 @@ class HistorialClinicoController extends Controller
         HistorialClinico::destroy($id);
         return response()->json(["Se ha eliminado el historial clinico exitosamente"],200);
     }
+
+
+    public function returnByOnePed(){
+        
+    }
+
 }

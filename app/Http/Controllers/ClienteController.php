@@ -18,6 +18,17 @@ class ClienteController extends Controller
         return response()->json(["Cliente"=>ClienteModel::find($id)],200);
         return response()->json(["Clientes"=>ClienteModel::all()],200);
     }
+
+    public function nombreClienteMascota(Request $request){ 
+        $mascotas = DB::table('mascotas')
+        ->join('clientes', 'clientes.id', '=' , 'mascotas.cliente')
+        ->where('clientes.id','=', $request->cliente_id)
+        ->select('mascotas.id as id_mascota','mascotas.nombre as mascota')
+        ->get();
+        return response()->json($mascotas);
+
+        
+    }
     
     public function create(Request $request)
     {
