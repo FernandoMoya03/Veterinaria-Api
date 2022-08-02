@@ -31,8 +31,6 @@ Route::middleware('auth:sanctum')->get('/clientes/{id?}', 'ClienteController@ind
 Route::middleware('auth:sanctum')->delete('/clientes/{id?}', 'ClienteController@destroy');
 Route::middleware('auth:sanctum')->put('/clientes/{id?}', 'ClienteController@update');
 Route::middleware('auth:sanctum')->post('/clientes', 'ClienteController@create');
-//
-Route::middleware('auth:sanctum')->get('/clienteMascota','ClienteController@nombreClienteMascota');
 
 //////// RUTAS DE EL APARTADO DE MASCOTAS ////////////
 Route::middleware("auth:sanctum")->get('/mascotas/{id?}', 'MascotasController@index');
@@ -45,8 +43,6 @@ Route::middleware('auth:sanctum')->get('/citas/{id?}', 'CitaController@index');
 Route::middleware('auth:sanctum')->delete('/citas/{id?}', 'CitaController@destroy');
 Route::middleware('auth:sanctum')->put('/citas/{id?}', 'CitaController@update');
 Route::middleware('auth:sanctum')->post('/citas', 'CitaController@create');
-//
-Route::middleware('auth:sanctum')->get('/citasCompleta','CitaController@indexCompleto');
 
 //////// RUTAS DE EL APARTADO DE HISTORIAL CLINICO ////////////
 Route::middleware('auth:sanctum')->get('/h_c/{id?}', 'HistorialClinicoController@index');
@@ -60,7 +56,11 @@ Route::middleware('auth:sanctum')->post('/servicios', 'ServicioController@create
 Route::middleware('auth:sanctum')->delete('/servicios/{id?}', 'ServicioController@destroy');
 Route::middleware('auth:sanctum')->put('/servicios/{id?}', 'ServicioController@update');
 
-
+///////////////////////////////////////////// CONSULTAS /////////////////////////////////////////////
+//////// ClienteMascota ////////////
+Route::middleware('auth:sanctum')->get('/clienteMascota','ClienteController@nombreClienteMascota');
+//////// Datos completos de la Cita ////////////
+Route::middleware('auth:sanctum')->get('/citasCompleta','CitaController@indexCompleto');
 
 //////// RUTAS DE EL APARTADO DE VETERINARIOS ////////////
 //Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
