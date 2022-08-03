@@ -25,7 +25,8 @@ class CitaController extends Controller
         $citas = DB::table('citas')
         ->join('clientes', 'clientes.id', '=' , 'citas.cliente')
         ->join('mascotas','mascotas.id','=','citas.mascota')
-        ->select('citas.id as id_cita','clientes.nombre as Cliente')
+        ->orderBy('fecha','asc')
+        ->select('citas.id as id_cita','mascotas.nombre as nombreM','citas.fecha as Fecha','clientes.nombre as Cliente', 'citas.servicio as Tipo')
         ->get();
 
         return response()->json($citas);
@@ -43,26 +44,19 @@ class CitaController extends Controller
         {
             return response()->json(['messeage' => 'Favor de insertar el cliente'],400); 
         }
-        elseif($request->veterinario == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar veterinario'],400); 
-        }
         elseif($request->fecha == "")
         {
             return response()->json(['messeage' => 'Favor de insertar la fecha'],400); 
         }
-        elseif($request->status == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar el status'],400); 
-        }
-
+       
+        $veterinario = $request->user();
         $citas = new CitasModel();
         $citas->mascota = $request->mascota;
         $citas->cliente = $request->cliente;
         $citas->servicio = $request->servicio;
-        $citas->veterinario = $request->veterinario;
+        $citas->veterinario = $veterinario->id;
         $citas->fecha = $request->fecha;
-        $citas->status = $request->status;
+        $citas->status = "1";
 
         if($citas->save())
         return response()->json(["Se ha agregado el servicio con exito!!!"],200);
