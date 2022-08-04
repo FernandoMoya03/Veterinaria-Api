@@ -24,7 +24,7 @@ class Citas extends Migration
             $table->unsignedBigInteger('veterinario');
             $table->foreign('veterinario')->references('id')->on('users');
             $table->date('fecha',45);
-            $table->string('status',45);
+            $table->double('status',1);
             $table->timestamps();
         });
     }

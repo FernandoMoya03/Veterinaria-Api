@@ -12,11 +12,20 @@ class ClienteController extends Controller
 {
     public function index($id = null)
     {
-
-
         if($id)
-        return response()->json(["Cliente"=>ClienteModel::find($id)],200);
-        return response()->json(["Clientes"=>ClienteModel::all()],200);
+        {
+            return response()->json(["Cliente"=>
+            $results = DB::select('select id, nombre, direccion, telefono from clientes where status = 1
+            and id = :id', ['id' => $id])
+            ],200);
+        }
+        return response()->json(["Clientes"=>
+            $results = DB::select('select id, nombre, direccion, telefono from clientes where status = 1')
+            ],200);
+
+        //if($id)
+        //return response()->json(["Usuario"=>VeterinarioModel::find($id)],200);
+        //return response()->json(["Usuarios"=>VeterinarioModel::all()],200);
     }
 
     public function nombreClienteMascota(Request $request){ 
@@ -49,16 +58,16 @@ class ClienteController extends Controller
         $user->nombre = $request->nombre;
         $user->direccion = $request->direccion;
         $user->telefono = $request->telefono;
+        $user->status = 1;
 
         if($user->save())
         return response()->json(["Se ha agregado el cliente con exito!!!"],200);
         return response()->json(null,400);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $results = DB::select('select * from clientes where id = :id', ['id' => $id]);
-       
+        $results = $request->id;
 
         if($results==[])
         {
@@ -81,19 +90,33 @@ class ClienteController extends Controller
             }
 
         $update = new ClienteModel();
-        $update = ClienteModel::find($id);
+        $update = ClienteModel::find($results);
         $update->nombre = $request->get('nombre');
         $update->direccion = $request->get('direccion');
         $update->telefono = $request->get('telefono');
         if($update->save())
         return response()->json(["Se ha actualizado el cliente exitosamente"],200);
         }
+        
     }
 
    
     public function destroy($id)
     {
+
         ClienteModel::destroy($id);
-       return response()->json(["Se ha eliminado el cliente exitosamente"],200);
+        return response()->json(["Se ha eliminado el cliente exitosamente"],200);
     }
+
+    public function changeStatus($id)
+    {
+        $update = new ClienteModel();
+        $update = ClienteModel::find($id);
+        $update->status = 0;
+        if($update->save())
+        return response()->json(["Se ha eliminado el cliente exitosamente"],200);
+    }
+        
+ 
 }
+

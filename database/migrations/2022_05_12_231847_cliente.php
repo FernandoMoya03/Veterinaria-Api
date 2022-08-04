@@ -18,6 +18,7 @@ class Cliente extends Migration
             $table->string('nombre',45);
             $table->string('direccion',75);
             $table->string('telefono',11);
+            $table->double('status',1);
             $table->timestamps();
         });
     }

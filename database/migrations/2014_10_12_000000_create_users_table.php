@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('telefono');
             $table->string('password');
             $table->string('tipo');
+            $table->double('status',1);
             $table->rememberToken();
             $table->timestamps();
         });

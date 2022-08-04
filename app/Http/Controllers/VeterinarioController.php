@@ -67,6 +67,7 @@ class VeterinarioController extends Controller
         $update->direccion = $request->get('direccion');
         $update->telefono = $request->get('telefono');
         $update->rol = $request->get('rol');
+        $user->status = 1;
         if($update->save())
         return response()->json(["Se ha actualizado el cliente exitosamente"],200);
         }

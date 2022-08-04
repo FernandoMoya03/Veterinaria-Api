@@ -61,6 +61,7 @@ class AuthController extends Controller
         $user->telefono = $request->telefono;
         $user->password = Hash::make($request->password);
         $user->tipo = $request->tipo;
+        $user->status = 1;
 
         if($user->save())
         return response()->json(["Se ha agregado el cliente con exito!!!"],200);
