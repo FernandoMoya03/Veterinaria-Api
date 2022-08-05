@@ -12,35 +12,38 @@ class ClienteController extends Controller
 {
     public function index($id = null)
     {
-        if($id)
+
+        /*   Si se un ID se busca por ahi siempre y cuando el status sea 1  */
+       if($id)
         {
             return response()->json(["Cliente"=>
             $results = DB::select('select id, nombre, direccion, telefono from clientes where status = 1
             and id = :id', ['id' => $id])
             ],200);
         }
+        /*   Si no se tiene un ID se busca en general siempre y cuando el status sea 1  */
         return response()->json(["Clientes"=>
             $results = DB::select('select id, nombre, direccion, telefono from clientes where status = 1')
             ],200);
 
-        //if($id)
-        //return response()->json(["Usuario"=>VeterinarioModel::find($id)],200);
-        //return response()->json(["Usuarios"=>VeterinarioModel::all()],200);
+       /* if($id)
+        return response()->json(["Cliente"=>ClienteModel::find($id)],200);
+        return response()->json(["Clientes"=>ClienteModel::all()],200); */
     }
 
     public function nombreClienteMascota(Request $request){ 
+        /*  Consulta SQL para tabla FRONT END  */
         $mascotas = DB::table('mascotas')
         ->join('clientes', 'clientes.id', '=' , 'mascotas.cliente')
         ->where('clientes.id','=', $request->cliente_id)
         ->select('mascotas.id as id_mascota','mascotas.nombre as mascota')
         ->get();
-        return response()->json($mascotas);
-
-        
+        return response()->json($mascotas); 
     }
     
     public function create(Request $request)
     {
+        /*   Validaciones de campos vacios  */
         if(!$request->nombre)
         {
             return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
@@ -53,11 +56,12 @@ class ClienteController extends Controller
         {
             return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
         }
-
+        /*   Instancia de la Tabla por acceso del Modelo   */
         $user = new ClienteModel();
         $user->nombre = $request->nombre;
         $user->direccion = $request->direccion;
         $user->telefono = $request->telefono;
+        /*   Status hardcodeado a 1   */
         $user->status = 1;
 
         if($user->save())
@@ -67,6 +71,7 @@ class ClienteController extends Controller
 
     public function update(Request $request)
     {
+        /*   Se toma el ID en el Request  */
         $results = $request->id;
 
         if($results==[])
@@ -75,7 +80,7 @@ class ClienteController extends Controller
         }
         else
         {
-
+            /*   Validaciones de campos vacios  */
             if($request->nombre == "")
             {
                 return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
@@ -97,24 +102,28 @@ class ClienteController extends Controller
         if($update->save())
         return response()->json(["Se ha actualizado el cliente exitosamente"],200);
         }
-        
+
     }
 
    
     public function destroy($id)
     {
-
+        /*   Se elimina completamente el campo con el ID asignado  */
         ClienteModel::destroy($id);
         return response()->json(["Se ha eliminado el cliente exitosamente"],200);
     }
 
+
+
     public function changeStatus($id)
     {
+        /*   Se cambia el status a 1 */
         $update = new ClienteModel();
         $update = ClienteModel::find($id);
         $update->status = 0;
-        if($update->save())
-        return response()->json(["Se ha eliminado el cliente exitosamente"],200);
+        $update->save();
+        return response()->json(["CORRECTO"],200);
+        
     }
         
  

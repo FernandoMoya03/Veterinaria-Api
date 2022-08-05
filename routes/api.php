@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->delete('/clientes/{id?}', 'ClienteController@
 Route::middleware('auth:sanctum')->put('/clientes/{id?}', 'ClienteController@update');
 Route::middleware('auth:sanctum')->post('/clientes', 'ClienteController@create');
 ///////////////////////////////////////////////////////
-Route::middleware('auth:sanctum')->put('/clientes/changeStatus/{id?}', 'ClienteController@changeStatus');
+Route::put('/clientes/changeStatus/{id?}', 'ClienteController@changeStatus');
 
 //////// RUTAS DE EL APARTADO DE MASCOTAS ////////////
 Route::middleware("auth:sanctum")->get('/mascotas/{id?}', 'MascotasController@index');
@@ -40,6 +40,7 @@ Route::middleware("auth:sanctum")->delete('/mascotas/{id?}', 'MascotasController
 Route::middleware("auth:sanctum")->put('/mascotas/{id?}', 'MascotasController@update');
 Route::middleware("auth:sanctum")->post('/mascotas', 'MascotasController@create');
 ///////////////////////////////////////////////////////
+Route::put('/mascotas/changeStatus/{id?}', 'MascotasController@changeStatus');
 
 //////// RUTAS DE EL APARTADO DE CITAS ////////////
 Route::middleware('auth:sanctum')->get('/citas/{id?}', 'CitaController@index');
