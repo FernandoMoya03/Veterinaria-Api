@@ -25,9 +25,7 @@ class MascotasController extends Controller
         return response()->json(["Mascotas"=>
             $results = DB::select('select * from mascotas where status = 1')
             ],200); 
-       /* if($id)
-        return response()->json(["Mascota"=>MascotasModel::find($id)],200);
-        return response()->json(["Mascotas"=>MascotasModel::all()],200);  */
+       
     }
 
    

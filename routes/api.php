@@ -68,9 +68,11 @@ Route::middleware('auth:sanctum')->put('/servicios/{id?}', 'ServicioController@u
 Route::middleware('auth:sanctum')->get('/clienteMascota','ClienteController@nombreClienteMascota');
 //////// Datos completos de la Cita ////////////
 Route::middleware('auth:sanctum')->get('/citasCompleta','CitaController@indexCompleto');
+//////// Datos completos de la Cita ////////////
+Route::middleware('auth:sanctum')->get('/cli_mascota','ClienteController@clienteMascota');
 
-
-
+//////// RUTAS DE EL APARTADO DE USUARIOS ////////////
+Route::get('/usuarios/{id?}', 'AuthController@getVeterinarios');
 
 
 //////// RUTAS DE EL APARTADO DE VETERINARIOS ////////////

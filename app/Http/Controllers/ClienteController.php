@@ -40,6 +40,16 @@ class ClienteController extends Controller
         ->get();
         return response()->json($mascotas); 
     }
+
+    public function clienteMascota(Request $request){ 
+        /*  Consulta SQL para tabla FRONT END  */
+        $mascotas = DB::table('mascotas')
+        ->join('clientes', 'clientes.id', '=' , 'mascotas.cliente')
+        ->select('mascotas.id as m_id','mascotas.nombre as m_nombre','mascotas.raza as m_raza','mascotas.tipo as m_tipo','mascotas.edad as m_edad', 'clientes.nombre as c_nombre')
+        ->where('mascotas.status', '=', '1')
+        ->get();
+        return response()->json($mascotas); 
+    }
     
     public function create(Request $request)
     {

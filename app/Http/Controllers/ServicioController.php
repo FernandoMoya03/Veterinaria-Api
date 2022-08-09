@@ -35,6 +35,7 @@ class ServicioController extends Controller
         $servicio = new ServicioModel();
         $servicio->servicio = $request->servicio;
         $servicio->descripcion = $request->descripcion;
+        $servicio->status = 1;
 
         if($servicio->save())
         return response()->json(["Se ha agregado el servicio con exito!!!"],200);
@@ -70,6 +71,7 @@ class ServicioController extends Controller
         $update = ServicioModel::find($id);
         $update->servicio = $request->get('servicio');
         $update->descripcion = $request->get('descripcion');
+        $update->status = 1;
         
         if($update->save())
         return response()->json(["Se ha actualizado el servicio exitosamente"],200);

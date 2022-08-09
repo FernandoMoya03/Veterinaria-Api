@@ -13,6 +13,38 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    public function getVeterinarios()
+    {
+            return response()->json(["Usuarios"=>
+            $results = DB::select('select id, name, email, direccion, telefono, tipo from users where status = 1
+            and tipo = 1')
+            ],200);
+    }
+
+    public function getAsistente()
+    {
+            return response()->json(["Asistentes"=>
+            $results = DB::select('select id, name, email, direccion, telefono, tipo from users where status = 1
+            and tipo = 2')
+            ],200);
+    }
+    public function getMixto()
+    {
+            return response()->json(["Usuarios"=>
+            $results = DB::select('select id, name, email, direccion, telefono, tipo from users where status = 1
+            and tipo = 1 and tipo = 2')
+            ],200);
+    }
+    
+    public function getAllUsuarios()
+    { 
+            return response()->json(["Usuarios"=>
+            $results = DB::select('select id, name, email, direccion, telefono, tipo from users where status = 1')
+            ],200);
+    }
+    
+    
+    
     public function logIn(Request $request)
     {
         $user = VeterinarioModel::where('email', $request->email)->first();
