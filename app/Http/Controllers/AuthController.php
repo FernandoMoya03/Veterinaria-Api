@@ -21,6 +21,13 @@ class AuthController extends Controller
             ],200);
     }
 
+    public function index($id = null)
+    {
+        if($id)
+        return response()->json(["Servicio"=>ServicioModel::find($id)],200);
+        return response()->json(["Servicios"=>ServicioModel::all()],200);
+    }
+    
     public function getAsistente()
     {
             return response()->json(["Asistentes"=>
@@ -28,21 +35,16 @@ class AuthController extends Controller
             and tipo = 2')
             ],200);
     }
-    public function getMixto()
-    {
-            return response()->json(["Usuarios"=>
-            $results = DB::select('select id, name, email, direccion, telefono, tipo from users where status = 1
-            and tipo = 1 and tipo = 2')
-            ],200);
-    }
-    
     public function getAllUsuarios()
     { 
             return response()->json(["Usuarios"=>
             $results = DB::select('select id, name, email, direccion, telefono, tipo from users where status = 1')
             ],200);
     }
-    
+    public function perfil(Request $request)
+    { 
+        return response()->json(['Perfil'=>$request->user()],200);
+    }
     
     
     public function logIn(Request $request)

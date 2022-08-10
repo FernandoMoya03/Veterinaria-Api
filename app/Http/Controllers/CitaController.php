@@ -20,20 +20,18 @@ class CitaController extends Controller
         return response()->json(["Citas"=>CitasModel::all()],200);
     }
 
-    public function indexCompleto(){
-
+    public function indexCompleto()
+    {
         $citas = DB::table('citas')
         ->join('clientes', 'clientes.id', '=' , 'citas.cliente')
         ->join('mascotas','mascotas.id','=','citas.mascota')
         ->orderBy('fecha','asc')
+        ->where('citas.status', '=','1')
         ->select('citas.id as id_cita','mascotas.nombre as nombreM','citas.fecha as Fecha','clientes.nombre as Cliente', 'citas.servicio as Tipo')
         ->get();
-
         return response()->json($citas);
-
     }
 
-    
     public function create(Request $request)
     {
         if($request->mascota == "")
@@ -116,4 +114,16 @@ class CitaController extends Controller
         CitasModel::destroy($id);
         return response()->json(["Se ha eliminado el servicio exitosamente"],200);
     }
+
+    public function changeStatus($id)
+    {
+        /*   Se cambia el status a 1 */
+        $update = new CitasModel();
+        $update = CitasModel::find($id);
+        $update->status = 0;
+        $update->save();
+        return response()->json(["CORRECTO"],200);
+        
+    }
+
 }
