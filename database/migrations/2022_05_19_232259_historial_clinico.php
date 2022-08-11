@@ -15,7 +15,7 @@ class HistorialClinico extends Migration
     {
         Schema::create('historial_clinico', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('diagnostico',45);
+            $table->string('diagnostico',500);
             $table->string('fecha',45);
             $table->unsignedBigInteger('cita');
             $table->foreign('cita')->references('id')->on('citas');

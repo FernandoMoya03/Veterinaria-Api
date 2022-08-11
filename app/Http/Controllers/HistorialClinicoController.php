@@ -13,11 +13,21 @@ use Illuminate\Http\Request;
 class HistorialClinicoController extends Controller
 {
 
+    public function historiales($id = null)
+    {
+        if($id = null)
+        return response()->json(["Historial"=>HistorialClinicomodel::find($id)],200);
+        return response()->json(["Historiales"=>HistorialClinicomodel::all()],200);
+    }
     public function index($id = null)
     {
-        if($id)
-        return response()->json(["Historial Clinico"=>HistorialClinicoModel::find($id)],200);
-        return response()->json(["Total de Historiales Clinicos"=>HistorialClinicoModel::all()],200);
+        $consulta = DB::table('citas')
+        ->join('clientes', 'clientes.id', '=' , 'citas.cliente')
+        ->join('mascotas','mascotas.id','=','citas.mascota')
+        ->where('citas.id', '=', $id)
+        ->select('citas.id as id','mascotas.edad','mascotas.tipo as tipo_masc','mascotas.raza as raza','mascotas.nombre as mascota','clientes.nombre as dueno','clientes.telefono as contacto', 'citas.servicio as tipo')
+        ->get();
+        return response()->json($consulta);
     }
 
    

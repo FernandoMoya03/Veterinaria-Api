@@ -57,6 +57,8 @@ Route::middleware('auth:sanctum')->post('/citas', 'CitaController@create');
 Route::put('/citas/changeStatus/{id?}', 'CitaController@changeStatus');
 
 //////// RUTAS DE EL APARTADO DE HISTORIAL CLINICO ////////////
+Route::middleware('auth:sanctum')->get('/historial/{id?}', 'HistorialClinicoController@index');
+
 Route::middleware('auth:sanctum')->get('/h_c/{id?}', 'HistorialClinicoController@index');
 Route::middleware('auth:sanctum')->delete('/h_c/{id?}', 'HistorialClinicoController@destroy');
 Route::middleware('auth:sanctum')->put('/h_c/{id?}', 'HistorialClinicoController@update');
