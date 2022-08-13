@@ -33,6 +33,7 @@ class HistorialClinicoController extends Controller
 
     public function historialMedicoCompleto($id = null)
     {
+        //historial
         $consulta = DB::table('historial_clinico')
         ->join('citas','citas.id', '=','historial_clinico.cita')
         ->join('servicios','servicios.id','=','citas.servicio')
