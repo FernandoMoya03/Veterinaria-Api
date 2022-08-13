@@ -84,6 +84,8 @@ Route::middleware('auth:sanctum')->get('/cli_mascota','ClienteController@cliente
 
 
 //////// RUTAS DE EL APARTADO DE VETERINARIOS ////////////
-//Route::get('/veterinarios/{id?}', 'VeterinarioController@index');
-//Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');
-//Route::put('/veterinarios/{id?}', 'VeterinarioController@update');
+Route::middleware('auth:sanctum')->get('/veterinarios/{id?}', 'VeterinarioController@index');
+Route::middleware('auth:sanctum')->put('/veterinarios/{id?}', 'VeterinarioController@update');
+
+Route::middleware('auth:sanctum')->get('/hc_completo/{id?}', 'HistorialClinicoController@historialMedicoCompleto');
+//Route::delete('/veterinarios/{id?}', 'VeterinarioController@destroy');   

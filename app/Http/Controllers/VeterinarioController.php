@@ -26,7 +26,7 @@ class VeterinarioController extends Controller
     {
 
 
-        $results = DB::select('select * from personal where id = :id', ['id' => $id]);   
+        $results = DB::select('select * from users where id = :id', ['id' => $id]);   
         if($results==[])
         {
             return response()->json(["No existe el Id de la Mascota"]);
@@ -34,40 +34,13 @@ class VeterinarioController extends Controller
         else
         {
            
-
-            if($request->name == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar Nombre'],400); 
-        }
-        elseif($request->email == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar el Email'],400); 
-        }
-        elseif($request->direccion == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar la Direccion'],400); 
-        }
-        elseif($request->telefono == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar el Numero de Telefono'],400); 
-        }
-        elseif($request->password == "")
-        {
-            return response()->json(['messeage' => 'Favor de insertar la contraseña'],400); 
-        }
-        elseif($request->tipo == "")
-        {
-            return response()->json(['messeage' => 'Favor de indicar el tipo'],400); 
-        }
-        
-
-        $update = new VeterinarioModel();
         $update = VeterinarioModel::find($id);
-        $update->nombre = $request->get('nombre');
+        $update->name = $request->get('name');
+        $update->email = $request->get('email');
+        $update->password = Hash::make($request->password);
         $update->direccion = $request->get('direccion');
-        $update->telefono = $request->get('telefono');
-        $update->rol = $request->get('rol');
-        $user->status = 1;
+        $update->telefono = $request->get('telefono'); 
+        $update->tipo = $request->get('tipo');
         if($update->save())
         return response()->json(["Se ha actualizado el cliente exitosamente"],200);
         }

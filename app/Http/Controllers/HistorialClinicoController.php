@@ -30,6 +30,20 @@ class HistorialClinicoController extends Controller
         return response()->json($consulta);
     }
 
+
+    public function historialMedicoCompleto($id = null)
+    {
+        $consulta = DB::table('historial_clinico')
+        ->join('citas','citas.id', '=','historial_clinico.cita')
+        ->join('servicios','servicios.id','=','citas.servicio')
+        ->join('clientes', 'clientes.id', '=' , 'citas.cliente')
+        ->join('mascotas','mascotas.id','=','citas.mascota')
+        ->where('mascotas.id', '=', $id)
+        ->select('mascotas.nombre as nMascota','servicios.servicio as sServicio','mascotas.edad as eMascota','mascotas.tipo as tMascota','mascotas.raza as rMascota','clientes.nombre as nCliente','clientes.telefono as tCliente','clientes.direccion as dCliente','historial_clinico.diagnostico as dHC','historial_clinico.fecha as fHC')
+        ->get();
+        return response()->json($consulta);
+    }
+
    
     public function create(Request $request)
     {
